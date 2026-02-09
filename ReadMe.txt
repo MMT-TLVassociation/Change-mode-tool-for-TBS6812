@@ -1,3 +1,26 @@
+Change-mode-tool-for-TBS6812の主要機能
+"ISDB-T"→"ISDB-S/S3", "ISDB-S/S3"→"ISDB-T"を切り替える。
+MACToolDlg.cppで、KSPROPSETID_BdaTunerExtensionPropertiesのKSPROPERTY_BDA_CTRL_DemodModeがポイント。
+まず今の設定状態を取得(get)する。
+	   hr = m_pKsCtrl->Get(KSPROPSETID_BdaTunerExtensionProperties,
+		                        KSPROPERTY_BDA_CTRL_DemodMode,
+		                        &mode,
+		                        sizeof( mode ),
+		                        &mode,
+		                        sizeof( mode ),
+		                        &BytesRead );
+&modeの値が1のとき"ISDB-T"、値が2のとき"ISDB-S/S3"に設定されている状態。
+
+setする時は、
+&m_CurModeの値が1のとき"ISDB-T"、値が2のとき"ISDB-S/S3"になる。
+		hr = m_pKsCtrl->Set(KSPROPSETID_BdaTunerExtensionProperties,
+			KSPROPERTY_BDA_CTRL_DemodMode,
+			&m_CurMode,
+			sizeof( m_CurMode ),
+			&m_CurMode,
+			sizeof( m_CurMode ));
+
+
 ================================================================================
     MICROSOFT FOUNDATION CLASS LIBRARY : MACTool Project Overview
 ===============================================================================
@@ -91,3 +114,4 @@ For more information on both of these topics, please see the section on
 redistributing Visual C++ applications in MSDN documentation.
 
 /////////////////////////////////////////////////////////////////////////////
+
